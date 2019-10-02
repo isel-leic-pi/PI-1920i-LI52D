@@ -12,8 +12,15 @@ function processFile(err, data) {
   fileContent = data;
 }
 
-while(fileContent == undefined) {
-  console.log("Waiting for file read")
+setTimeout(processFileContentIfAlreadyPresent, 0)
+
+function processFileContentIfAlreadyPresent() {
+  if(fileContent != undefined) {
+    return console.log(`File content is ${fileContent}`)
+  }
+  console.log("File data not available yet. wait some more time...")
+
+  setTimeout(processFileContentIfAlreadyPresent, 0)  
 }
 
-console.log(`File content is ${fileContent}`)
+
