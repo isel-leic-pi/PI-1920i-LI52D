@@ -4,7 +4,7 @@ let path = process.argv[2] || '.'
 
 const mf = require('./monitoring-fs')
 
-mf.watch(path, processFsEvent)
+mf(path, processFsEvent)
 
 
 function processFsEvent(err, e) {
