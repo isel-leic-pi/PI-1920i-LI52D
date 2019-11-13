@@ -2,10 +2,10 @@ const PORT = 1904
 
 const http = require('http')
 
-const b4Books = require('./b4-books')
-const b4Bundles = require('./b4-bundles')
+const b4Books = require('./b4-books-data')()
+const b4Bundles = require('./b4-bundles-data')()
 const b4Service = require('./b4-service')(b4Bundles, b4Books)
-const booksApiInit = require('./b4-web-api')(b4Service)
+const booksApi = require('./b4-web-api')(b4Service)
 
 const router = require('./router');
 

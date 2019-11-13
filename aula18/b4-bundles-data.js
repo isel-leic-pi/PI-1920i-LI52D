@@ -1,12 +1,6 @@
 
 
-module.exports = function(b4Bundles, b4Books) {
-  if(!b4Bundles) {
-    throw "Invalid b4Bundles"
-  }
-  if(!b4Books) {
-    throw "Invalid b4Books"
-  }
+module.exports = function() {
 
   return {
     getAllBundles: getAllBundles,
@@ -20,19 +14,15 @@ module.exports = function(b4Bundles, b4Books) {
 
 
   function getAllBundles(cb) {
-    b4Bundles.getAllBundles(cb)
+    cb(null, "all bundles")
   }
   
   function getBundle(id, cb) {
-    b4Bundles.getBundle(id, cb)
+    cb(null, `get bundle with id ${id}`)
   }
   
-  function createBundle(name, descr, cb)  {
-    if(!name) {
-      cb("bundle name must be defined")
-    }
-    
-    b4Bundles.createBundle({name, descr}, cb)
+  function createBundle(bundle, cb)  {
+    cb(null, `create bundle with name '${bundle.name}' and description '${bundle.descr}'`)
   }
   
   function deleteBundle(id, cb) {
