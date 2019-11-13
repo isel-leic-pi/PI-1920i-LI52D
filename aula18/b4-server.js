@@ -7,19 +7,20 @@ const b4Bundles = require('./b4-bundles-data')()
 const b4Service = require('./b4-service')(b4Bundles, b4Books)
 const booksApi = require('./b4-web-api')(b4Service)
 
-const router = require('./router');
-
-
-router.get('/bundles', booksApi.getAllBundles)
-router.post('/bundles', booksApi.createBundle)
-router.get('/bundles/:id', booksApi.getBundle)
-router.delete('/bundles/:id', booksApi.deleteBundle)
-router.put('/bundles/:id', booksApi.updateBundle)
-router.put('/bundles/:idBundle/books/:idBook', booksApi.addBookToBundle)
+const express = require('express')
+const app = express();
+app.use(express.json())
 
 
 
-server = http.createServer(router)
+app.get('/bundles', booksApi.getAllBundles)
+app.post('/bundles', booksApi.createBundle)
+app.get('/bundles/:id', booksApi.getBundle)
+app.delete('/bundles/:id', booksApi.deleteBundle)
+app.put('/bundles/:id', booksApi.updateBundle)
+app.put('/bundles/:idBundle/books/:idBook', booksApi.addBookToBundle)
 
-server.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
+
+app.listen(PORT)
+
 
