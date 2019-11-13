@@ -1,6 +1,14 @@
 
 
-module.exports = function (b4Service) {
+module.exports = function (router, b4Service) {
+  router.get('/', getAllBundles)
+  router.post('/', createBundle)
+  router.get('/:id', getBundle)
+  router.delete('/:id', deleteBundle)
+  router.put('/:id', updateBundle)
+  router.put('/:idBundle/books/:idBook', addBookToBundle)
+
+
   return {
     getAllBundles: getAllBundles,
     getBundle: getBundle,

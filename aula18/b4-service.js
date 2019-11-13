@@ -20,7 +20,10 @@ module.exports = function(b4Bundles, b4Books) {
 
 
   function getAllBundles(cb) {
+  setTimeout(() => {
     b4Bundles.getAllBundles(cb)
+  }, 2000);
+  
   }
   
   function getBundle(id, cb) {

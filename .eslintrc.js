@@ -3,7 +3,6 @@ module.exports = {
         "browser": true,
         "es6": true,
         "node": true
-
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -12,7 +11,6 @@ module.exports = {
         "ecmaFeatures": {
             "impliedStrict": true
         }
-
     },
     "rules": {
         "indent": [
@@ -27,14 +25,12 @@ module.exports = {
             "error",
             "single",
             "backtick"
-
-            
         ],
         "semi": [
-            "error",
+            "error", 
             "never"
         ],
-        "no-console": "off"
-
+        "no-console": "warn",
+        "strict": "global",
     }
-};
+}
