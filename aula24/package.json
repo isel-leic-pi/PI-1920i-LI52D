@@ -1,0 +1,18 @@
+{
+  "name": "b4-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "b4-service.js",
+  "scripts": {
+    "start": "node b4-server.js", 
+    "start-dev": "nodemon b4-server.js", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  }
+}
