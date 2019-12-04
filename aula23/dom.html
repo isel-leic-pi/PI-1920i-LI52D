@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script>
+        window.onload = function(e) {
+          const text = document.querySelector("#txt")
+          const b = document.querySelector("#btn")
+          const result = document.querySelector("#result")
+
+          document.body.addEventListener("click", bodyCapturing, true)
+          document.body.addEventListener("click", bodyBubbling, false)
+          
+          
+
+          b.onclick = buttonClick;
+
+          function bodyCapturing(e) {
+            console.log("body capturing")
+            
+
+          }
+
+          function bodyBubbling(e) {
+            console.log("body bubbling")
+          }
+          
+          function buttonClick (e) {
+            console.log("at button")
+            result.innerHTML += `<li>${text.value}</li>`
+
+            e.stopPropagation()
+          }
+        }
+        </script>
+  </head>
+
+  <body>
+    <p>
+      Insert some text: <input id="txt" value="qq coisa" type="text"/> 
+      <button id="btn">Click me</button>
+    </p>
+    <ul id="result"></ul>
+  </body>
+  
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script>
+        window.onload = function(e) {
+          const text = document.querySelector("#txt")
+          const url = document.querySelector("#url")
+          const b = document.querySelector("#btn")
+          const hyperlink = document.querySelector("#hyperlink")
+
+          hyperlink.onclick = hyperlinkClick
+
+          b.onclick = buttonClick;
+
+          
+          function buttonClick (e) {
+            
+            hyperlink.href = url.value
+            hyperlink.innerHTML = text.value
+
+          }
+
+          function hyperlinkClick (e) {
+            e.stopPropagation()
+            e.preventDefault()
+
+          }
+        }
+        </script>
+  </head>
+
+  <body>
+    <p>
+      Text: <input id="txt" value="" type="text"/> 
+      Url: <input id="url" value="" type="text"/> 
+      <button id="btn">Click me</button>
+    </p>
+    <a id="hyperlink">
+  </body>
+  
+</html>
