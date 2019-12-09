@@ -36,17 +36,13 @@ module.exports = function(b4Bundles, b4Books) {
   }
   
   function deleteBundle(id, cb) {
-    cb(null, `delete bundle with id ${id}`)
+    b4Bundles.deleteBundle(id, cb)
   }
   
   function updateBundle(name, descr, cb) {
     cb(null, `update bundle with name '${name}' and description '${descr}'`)
   }
   
-  
-  function deleteBundle(id, cb) {
-    cb(null, `delete bundle with id ${id}`)
-  }
   
   function addBookToBundle(bundleId, bookId, cb) {
     cb(null, `adding book with id ${bookId} to bundle with id ${bundleId}`)

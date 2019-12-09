@@ -13,7 +13,7 @@ module.exports = function() {
     }
   }
 
-  console.log(bundles)
+  //console.log(bundles)
 
   return {
     getAllBundles: getAllBundles,
@@ -37,17 +37,19 @@ module.exports = function() {
   }
   
   function deleteBundle(id, cb) {
-    cb(null, `delete bundle with id ${id}`)
+    console.log(`deleteBundle data ${id}`)
+    const idx = bundles.findIndex(b => b.id == id)
+    if(idx < 0) {
+      return cb(`Could not find bundle with id ${id}`)
+    }
+    bundles.splice(idx, 1)
+    cb(null, `Bundle ${id} deleted`)
   }
   
   function updateBundle(name, descr, cb) {
     cb(null, `update bundle with name '${name}' and description '${descr}'`)
   }
   
-  
-  function deleteBundle(id, cb) {
-    cb(null, `delete bundle with id ${id}`)
-  }
   
   function addBookToBundle(bundleId, bookId, cb) {
     cb(null, `adding book with id ${bookId} to bundle with id ${bundleId}`)

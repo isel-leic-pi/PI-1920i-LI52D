@@ -8,16 +8,6 @@ module.exports = function (router, b4Service) {
   router.put('/:id', updateBundle)
   router.put('/:idBundle/books/:idBook', addBookToBundle)
 
-
-  return {
-    getAllBundles: getAllBundles,
-    getBundle: getBundle,
-    createBundle: createBundle,
-    deleteBundle: deleteBundle,
-    updateBundle: updateBundle,
-    addBookToBundle: addBookToBundle
-  }
-
   function getAllBundles(req, rsp) {
     log('getAllBundles')
     b4Service.getAllBundles(sendResponse(rsp))
@@ -33,7 +23,10 @@ module.exports = function (router, b4Service) {
   }
 
   function deleteBundle(req, rsp) {
+    log(`deleteBundle ${req.params.id}`)
+    console.log(b4Service.deleteBundle)
     b4Service.deleteBundle(req.params.id, sendResponse(rsp))
+    log('deleteBundle after')
   }
 
   function updateBundle(req, rsp) {
@@ -45,9 +38,9 @@ module.exports = function (router, b4Service) {
   }
 
   function sendResponse(rsp, status = 200) {
-    console.log(rsp)
+    //console.log(rsp)
     return function (err, data) {
-      log(`sendResponse with data ${data}`)
+      //log(`sendResponse with data ${data}`)
       rsp.statusCode = status;
       rsp.end(JSON.stringify(data))
     }

@@ -1,9 +1,17 @@
 const bundlesTableTemplate = 
     Handlebars.compile(
           `<table>
-            <tr><th>Name1</th><th>Description</th></tr>
+            <tr>
+              <th>Name1</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
             {{#each this}}
-              <tr><td><a href='#bundleDetails/{{id}}'>{{name}}</a></td><td>{{description}}</td></tr>
+              <tr>
+                <td><a href='#bundleDetails/{{id}}'>{{name}}</a></td>
+                <td>{{description}}</td>
+                <td><button class="delete" id="{{id}}">Delete {{name}}</button>
+              </tr>
             {{/each}}
           </table>
         `)
