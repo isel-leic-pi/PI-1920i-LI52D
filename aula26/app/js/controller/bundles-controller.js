@@ -1,4 +1,6 @@
-const controller = {
+const data = require('../model/bundles-data')
+
+module.exports = {
   home: async function() {
     return  {
       bigodes: "https://handlebarsjs.com/images/handlebars_logo.png"

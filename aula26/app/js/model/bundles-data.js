@@ -9,7 +9,7 @@ function BundlesApiUris() {
 
 const apiUris = new BundlesApiUris();
 
-const data = {
+module.exports = {
   getBundles: function () {
     return fetch(apiUris.getAllBundlesUri()).then(response => response.json())
   },

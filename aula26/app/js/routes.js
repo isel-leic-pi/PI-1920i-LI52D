@@ -1,4 +1,9 @@
-const routes = {
+const controller = require('./controller/bundles-controller')
+const views = require('./view/views')
+
+
+
+module.exports = {
   home: {
     controller: controller.home,
     view: views.homeView

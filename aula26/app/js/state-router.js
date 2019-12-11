@@ -1,3 +1,5 @@
+const routes = require('./routes')
+
 
 window.addEventListener("load", pageLoad)
 

@@ -1,3 +1,421 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./entry.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./entry.js":
+/*!******************!*\
+  !*** ./entry.js ***!
+  \******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(/*! ./js/state-router */ "./js/state-router.js")
+
+// require('./node_modules/bootstrap/dist/css/bootstrap.min.css')
+// require('bootstrap')
+
+
+
+// const routes = require('./app/routes')
+
+// ; // This semicolon is required here. If omitted the JavaScrip interpreter interprets this the following code as a function call, 
+// // and that is not what we want. This is one of a few singular situations where 
+// // semicolon is needed even if we have each instruction in its own line.
+
+// (function () {  
+//   let mainContent = document.querySelector('.b4-main')
+//   let alerts = document.querySelector('.b4-alerts')
+//   window.addEventListener('hashchange', showView);
+//   showView();
+
+//   async function showView() {  
+//     let [view, ...params] = window.location.hash.split('/')
+//     view = view.substring(1)
+
+//     let viewTemplate = routes[view]
+//     if(viewTemplate) {
+//       try {
+//         mainContent.innerHTML = await viewTemplate.view.apply(null, params)
+//         await viewTemplate.script()
+//       } catch(err) {
+//         alerts.innerHTML = await routes.error.view(err)
+//         await routes.error.script()
+//       }
+//     } else {
+//       window.location.hash = '#welcome'
+//     }
+//   }
+// })()
+
+
+/***/ }),
+
+/***/ "./js/controller/bundles-controller.js":
+/*!*********************************************!*\
+  !*** ./js/controller/bundles-controller.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const data = __webpack_require__(/*! ../model/bundles-data */ "./js/model/bundles-data.js")
+
+module.exports = {
+  home: async function() {
+    return  {
+      bigodes: "https://handlebarsjs.com/images/handlebars_logo.png"
+    }
+  },
+  getBundles: async function () {
+    return data.getBundles()
+  },
+  
+  getBundle: async function (id) {
+    return data.getBundle(id)
+  },
+  
+  deleteBundle: async function(id) {
+    return data.deleteBundle(id)
+  }, 
+  createBundle: async function(bundle) {
+    return data.deleteBundle(id)
+  }
+}
+
+
+
+/***/ }),
+
+/***/ "./js/model/bundles-data.js":
+/*!**********************************!*\
+  !*** ./js/model/bundles-data.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+function BundlesApiUris() {
+  const baseUri = "http://localhost:1904/"
+
+  this.getAllBundlesUri =  () => `${baseUri}bundles`
+  this.getBundleUri =  (id) => `${baseUri}bundles/${id}`
+}
+
+const apiUris = new BundlesApiUris();
+
+module.exports = {
+  getBundles: function () {
+    return fetch(apiUris.getAllBundlesUri()).then(response => response.json())
+  },
+  
+  getBundle: function (id) {
+    return fetch(apiUris.getBundleUri(id)).then(response => response.json())
+  },
+  
+  deleteBundle: function(id) {
+    return fetch(apiUris.getBundleUri(id), { method: "DELETE"}).then(response => response.json())
+    
+    
+  }
+}
+
+
+
+/***/ }),
+
+/***/ "./js/routes.js":
+/*!**********************!*\
+  !*** ./js/routes.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const controller = __webpack_require__(/*! ./controller/bundles-controller */ "./js/controller/bundles-controller.js")
+const views = __webpack_require__(/*! ./view/views */ "./js/view/views.js")
+
+
+
+module.exports = {
+  home: {
+    controller: controller.home,
+    view: views.homeView
+  },
+  bundles: {
+    controller: controller.getBundles,
+    view: views.bundlesView
+  },
+  bundleDetails: {
+    controller: controller.getBundle,
+    view: views.bundleDetailsView,
+  },
+  deleteBundle: {
+    controller: controller.deleteBundle,
+    view: views.deleteBundleView,
+  },
+}
+
+
+
+/***/ }),
+
+/***/ "./js/state-router.js":
+/*!****************************!*\
+  !*** ./js/state-router.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const routes = __webpack_require__(/*! ./routes */ "./js/routes.js")
+
+
+window.addEventListener("load", pageLoad)
+
+
+window.addEventListener('hashchange', processHashChange)
+
+
+function pageLoad() {
+  let results = document.querySelector("#results")
+
+  processHashChange()
+}
+
+
+function  processHashChange() {
+  const DEFAULT_STATE = "home"
+
+  const hash = window.location.hash.substring(1)
+  let [state, ...args] = hash.split('/')
+
+  let route = routes[state];
+
+  if(!route) {
+    window.location.hash = DEFAULT_STATE;
+    return;
+  }
+
+  
+  route
+    .controller.apply(null, args)
+    .then(data => route.view(data, createDom))
+}
+
+
+function createDom(html) {
+  results.innerHTML = html;
+}
+
+
+
+/***/ }),
+
+/***/ "./js/view/templates.js":
+/*!******************************!*\
+  !*** ./js/view/templates.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! ../../node_modules/handlebars/dist/handlebars */ "./node_modules/handlebars/dist/handlebars.js")
+
+module.exports = {
+  homeTemplate: 
+    Handlebars.compile(__webpack_require__(/*! ./templates/home.hbs */ "./js/view/templates/home.hbs").default),
+  bundlesTableTemplate:
+    Handlebars.compile(__webpack_require__(/*! ./templates/bundles.hbs */ "./js/view/templates/bundles.hbs").default),
+  bundleTemplate:
+    Handlebars.compile(__webpack_require__(/*! ./templates/bundle.hbs */ "./js/view/templates/bundle.hbs").default)
+}
+
+
+/***/ }),
+
+/***/ "./js/view/templates/bundle.hbs":
+/*!**************************************!*\
+  !*** ./js/view/templates/bundle.hbs ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ul>\n  <li>{{name}}</li>\n  <li>{{description}}</li>\n</ul>");
+
+/***/ }),
+
+/***/ "./js/view/templates/bundles.hbs":
+/*!***************************************!*\
+  !*** ./js/view/templates/bundles.hbs ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<table>\n  <tr>\n    <th>Name2</th>\n    <th>Description</th>\n    <th>Actions</th>\n  </tr>\n  {{#each this}}\n  <tr>\n    <td><a href='#bundleDetails/{{id}}'>{{name}}</a></td>\n    <td>{{description}}</td>\n    <td><button class=\"delete\" id=\"{{id}}\">Delete {{name}}</button>\n  </tr>\n  {{/each}}\n</table>");
+
+/***/ }),
+
+/***/ "./js/view/templates/home.hbs":
+/*!************************************!*\
+  !*** ./js/view/templates/home.hbs ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>B4 Application</h1>\n<img src=\"{{bigodes}}\"/>\n<p>\n  <a href=\"#bundles\">All bundles</a>\n<p>");
+
+/***/ }),
+
+/***/ "./js/view/views.js":
+/*!**************************!*\
+  !*** ./js/view/views.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const templates = __webpack_require__(/*! ./templates */ "./js/view/templates.js")
+
+
+module.exports = {
+  homeView : homeView,
+  bundlesView : bundlesView,
+  bundleDetailsView: bundleDetailsView,
+  deleteBundleView: deleteBundleView,
+}
+
+
+function homeView(data, createDom) {
+  createDom(templates.homeTemplate(data))
+}
+
+function bundlesView(bundles, createDom) {
+  createDom(templates.bundlesTableTemplate(bundles))
+  registerInTableActions()
+}
+
+
+function bundleDetailsView(bundle, createDom) {
+  createDom(templates.bundleTemplate(bundle)) 
+  
+}
+
+
+function registerInTableActions(params) {
+  document.querySelectorAll("button.delete").forEach(b => b.addEventListener("click", deleteBundle))
+
+
+  function deleteBundle() {
+    window.location.hash = `deleteBundle/${this.id}`;
+  }
+}
+
+
+function deleteBundleView(params) {
+  console.log(`deleting bundle ${this.id}`)
+  window.location.hash = `bundles`;
+
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/handlebars/dist/handlebars.js":
+/*!****************************************************!*\
+  !*** ./node_modules/handlebars/dist/handlebars.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
 /**!
 
  @license
@@ -25,14 +443,9 @@ THE SOFTWARE.
 
 */
 (function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
+	if(true)
 		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Handlebars"] = factory();
-	else
-		root["Handlebars"] = factory();
+	else {}
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -4847,12 +5260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	try {
 	  /* istanbul ignore next */
-	  if (false) {
-	    // We don't support this in AMD environments. For these environments, we asusme that
-	    // they are running on the browser and thus have no need for the source-map library.
-	    var SourceMap = require('source-map');
-	    SourceNode = SourceMap.SourceNode;
-	  }
+	  if (false) { var SourceMap; }
 	} catch (err) {}
 	/* NOP */
 
@@ -5008,3 +5416,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=bundle.js.map

@@ -1,5 +1,7 @@
+const templates = require('./templates')
 
-const views = {
+
+module.exports = {
   homeView : homeView,
   bundlesView : bundlesView,
   bundleDetailsView: bundleDetailsView,
@@ -8,17 +10,17 @@ const views = {
 
 
 function homeView(data, createDom) {
-  createDom(homeTemplate(data))
+  createDom(templates.homeTemplate(data))
 }
 
 function bundlesView(bundles, createDom) {
-  createDom(bundlesTableTemplate(bundles))
+  createDom(templates.bundlesTableTemplate(bundles))
   registerInTableActions()
 }
 
 
 function bundleDetailsView(bundle, createDom) {
-  createDom(bundleTemplate(bundle)) 
+  createDom(templates.bundleTemplate(bundle)) 
   
 }
 
