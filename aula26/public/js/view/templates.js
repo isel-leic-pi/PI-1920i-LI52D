@@ -1,3 +1,14 @@
+const homeTemplate = 
+    Handlebars.compile(`
+      <h1>B4 Application</h1>
+      <img src="{{bigodes}}"/>
+      <p>
+        <a href="#bundles">All bundles</a>
+      <p>
+    `)
+
+
+
 const bundlesTableTemplate = 
     Handlebars.compile(
           `<table>

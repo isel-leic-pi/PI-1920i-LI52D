@@ -1,28 +1,19 @@
 const routes = {
+  home: {
+    controller: controller.home,
+    view: views.homeView
+  },
   bundles: {
-    fetchData: data.getBundles,
-    view: bundlesTableTemplate,
-    script: registerInTableActions
+    controller: controller.getBundles,
+    view: views.bundlesView
   },
   bundleDetails: {
-    fetchData: data.getBundle,
-    view: bundleTemplate,
-    script: nop
-  }
+    controller: controller.getBundle,
+    view: views.bundleDetailsView,
+  },
+  deleteBundle: {
+    controller: controller.deleteBundle,
+    view: views.deleteBundleView,
+  },
 }
 
-
-function registerInTableActions(params) {
-  document.querySelectorAll("button.delete").forEach(b => b.addEventListener("click", deleteBundle))
-
-
-  function deleteBundle() {
-    data.deleteBundle(this.id).then(refreshBundlesTable)
-
-    function refreshBundlesTable() {
-      processHashChange()
-    }
-  }
-}
-
-function nop() { }
