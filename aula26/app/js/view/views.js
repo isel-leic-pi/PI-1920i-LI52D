@@ -9,34 +9,29 @@ module.exports = {
 }
 
 
-function homeView(data, createDom) {
-  createDom(templates.homeTemplate(data))
+function homeView(data, routeManager) {
+  routeManager.setMainContent(templates.homeTemplate(data))
 }
 
-function bundlesView(bundles, createDom) {
-  createDom(templates.bundlesTableTemplate(bundles))
-  registerInTableActions()
-}
-
-
-function bundleDetailsView(bundle, createDom) {
-  createDom(templates.bundleTemplate(bundle)) 
+function bundlesView(bundles, routeManager) {
+  routeManager.setMainContent(templates.bundlesTableTemplate(bundles))
   
-}
-
-
-function registerInTableActions(params) {
   document.querySelectorAll("button.delete").forEach(b => b.addEventListener("click", deleteBundle))
 
-
   function deleteBundle() {
-    window.location.hash = `deleteBundle/${this.id}`;
+    routeManager.changeRoute(`deleteBundle/${this.id}`)
   }
+
 }
+
+
+function bundleDetailsView(bundle, routeManager) {
+  routeManager.setMainContent(templates.bundleTemplate(bundle)) 
+}
+
 
 
 function deleteBundleView(params) {
   console.log(`deleting bundle ${this.id}`)
-  window.location.hash = `bundles`;
-
+  routeManager.changeRoute(`bundles`)
 }

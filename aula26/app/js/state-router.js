@@ -1,40 +1,59 @@
 const routes = require('./routes')
 
 
-window.addEventListener("load", pageLoad)
-
-
-window.addEventListener('hashchange', processHashChange)
-
-
-function pageLoad() {
+window.addEventListener("load", function() {
+  window.addEventListener('hashchange', processHashChange)
   let results = document.querySelector("#results")
 
-  processHashChange()
-}
+  let routeData = null;
 
+  const routeManager = {
+    setMainContent: function (html) {
+      results.innerHTML = html
+    },
 
-function  processHashChange() {
-  const DEFAULT_STATE = "home"
+    changeRoute: function(hash, data) {
+      routeData = routeData
+      window.location.hash = hash
+    }
+  }
 
-  const hash = window.location.hash.substring(1)
-  let [state, ...args] = hash.split('/')
-
-  let route = routes[state];
-
-  if(!route) {
-    window.location.hash = DEFAULT_STATE;
-    return;
+  function addRouteData(args) {
+    args.push(routeData)
+    resetRouteData()
   }
 
   
-  route
-    .controller.apply(null, args)
-    .then(data => route.view(data, createDom))
-}
+  function resetRouteData(args) {
+    routeData = null;
+  }
+
+  processHashChange()
+
+  function  processHashChange() {
+    const DEFAULT_STATE = "home"
+
+    const hash = window.location.hash.substring(1)
+    let [state, ...args] = hash.split('/')
+
+    let route = routes[state];
+
+    if(!route) {
+      window.location.hash = DEFAULT_STATE;
+      return;
+    }
+    
+    addRouteData(args)
+    route
+      .controller.apply(null, args)
+      .then(data => route.view(data, routeManager))
+  }
 
 
-function createDom(html) {
-  results.innerHTML = html;
-}
+  
+});
+
+
+
+
 

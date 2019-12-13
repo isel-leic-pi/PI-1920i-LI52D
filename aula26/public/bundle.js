@@ -98,42 +98,6 @@
 
 __webpack_require__(/*! ./js/state-router */ "./js/state-router.js")
 
-// require('./node_modules/bootstrap/dist/css/bootstrap.min.css')
-// require('bootstrap')
-
-
-
-// const routes = require('./app/routes')
-
-// ; // This semicolon is required here. If omitted the JavaScrip interpreter interprets this the following code as a function call, 
-// // and that is not what we want. This is one of a few singular situations where 
-// // semicolon is needed even if we have each instruction in its own line.
-
-// (function () {  
-//   let mainContent = document.querySelector('.b4-main')
-//   let alerts = document.querySelector('.b4-alerts')
-//   window.addEventListener('hashchange', showView);
-//   showView();
-
-//   async function showView() {  
-//     let [view, ...params] = window.location.hash.split('/')
-//     view = view.substring(1)
-
-//     let viewTemplate = routes[view]
-//     if(viewTemplate) {
-//       try {
-//         mainContent.innerHTML = await viewTemplate.view.apply(null, params)
-//         await viewTemplate.script()
-//       } catch(err) {
-//         alerts.innerHTML = await routes.error.view(err)
-//         await routes.error.script()
-//       }
-//     } else {
-//       window.location.hash = '#welcome'
-//     }
-//   }
-// })()
-
 
 /***/ }),
 
@@ -255,42 +219,61 @@ module.exports = {
 const routes = __webpack_require__(/*! ./routes */ "./js/routes.js")
 
 
-window.addEventListener("load", pageLoad)
-
-
-window.addEventListener('hashchange', processHashChange)
-
-
-function pageLoad() {
+window.addEventListener("load", function() {
+  window.addEventListener('hashchange', processHashChange)
   let results = document.querySelector("#results")
 
-  processHashChange()
-}
+  let routeData = null;
 
+  const routeManager = {
+    setMainContent: function (html) {
+      results.innerHTML = html
+    },
 
-function  processHashChange() {
-  const DEFAULT_STATE = "home"
+    changeRoute: function(hash, data) {
+      routeData = routeData
+      window.location.hash = hash
+    }
+  }
 
-  const hash = window.location.hash.substring(1)
-  let [state, ...args] = hash.split('/')
-
-  let route = routes[state];
-
-  if(!route) {
-    window.location.hash = DEFAULT_STATE;
-    return;
+  function addRouteData(args) {
+    args.push(routeData)
+    resetRouteData()
   }
 
   
-  route
-    .controller.apply(null, args)
-    .then(data => route.view(data, createDom))
-}
+  function resetRouteData(args) {
+    routeData = null;
+  }
+
+  processHashChange()
+
+  function  processHashChange() {
+    const DEFAULT_STATE = "home"
+
+    const hash = window.location.hash.substring(1)
+    let [state, ...args] = hash.split('/')
+
+    let route = routes[state];
+
+    if(!route) {
+      window.location.hash = DEFAULT_STATE;
+      return;
+    }
+    
+    addRouteData(args)
+    route
+      .controller.apply(null, args)
+      .then(data => route.view(data, routeManager))
+  }
 
 
-function createDom(html) {
-  results.innerHTML = html;
-}
+  
+});
+
+
+
+
 
 
 
@@ -374,36 +357,31 @@ module.exports = {
 }
 
 
-function homeView(data, createDom) {
-  createDom(templates.homeTemplate(data))
+function homeView(data, routeManager) {
+  routeManager.setMainContent(templates.homeTemplate(data))
 }
 
-function bundlesView(bundles, createDom) {
-  createDom(templates.bundlesTableTemplate(bundles))
-  registerInTableActions()
-}
-
-
-function bundleDetailsView(bundle, createDom) {
-  createDom(templates.bundleTemplate(bundle)) 
+function bundlesView(bundles, routeManager) {
+  routeManager.setMainContent(templates.bundlesTableTemplate(bundles))
   
-}
-
-
-function registerInTableActions(params) {
   document.querySelectorAll("button.delete").forEach(b => b.addEventListener("click", deleteBundle))
 
-
   function deleteBundle() {
-    window.location.hash = `deleteBundle/${this.id}`;
+    routeManager.changeRoute(`deleteBundle/${this.id}`)
   }
+
 }
+
+
+function bundleDetailsView(bundle, routeManager) {
+  routeManager.setMainContent(templates.bundleTemplate(bundle)) 
+}
+
 
 
 function deleteBundleView(params) {
   console.log(`deleting bundle ${this.id}`)
-  window.location.hash = `bundles`;
-
+  routeManager.changeRoute(`bundles`)
 }
 
 
