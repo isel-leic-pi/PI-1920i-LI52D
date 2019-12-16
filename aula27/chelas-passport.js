@@ -21,18 +21,18 @@ function initialize() {
       console.log(user)
       serializeUserCb(user, function(err, userSerialized) {
         console.log(userSerialized)
-        rsp.cookie(SESSION_COOKIE_NAME, JSON.stringify(userSerialized))
+        req.session.chelasPassport = userSerialized
         cb(err)
       })
     }
 
-    req.logOut = function(obj, cb) {
-      rsp.clearCookie(SESSION_COOKIE_NAME)
-      cb()
+    req.logOut = function() {
+      req.session.chelasPassport = null
+      req.user = undefined
     }
 
     req.isAuthenticated = function() {
-      return !!req.cookies[SESSION_COOKIE_NAME];
+      return req.session.chelasPassport
     }
     next()
   }
@@ -42,7 +42,7 @@ function initialize() {
 function session() {
   return function(req, rsp, next) {
     if(req.isAuthenticated()) {
-      deserializeUserCb(JSON.parse(req.cookies[SESSION_COOKIE_NAME]), 
+      deserializeUserCb(req.session.chelasPassport, 
         (err, user) => { 
           req.user = user
         } 

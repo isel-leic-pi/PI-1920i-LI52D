@@ -3,9 +3,10 @@
 const path = require('path') 
 const express = require('express') 
 const morgan = require('morgan') 
-const passport = require('./chelas-passport') 
+const cookieParser = require('cookie-parser') 
+//const passport = require('./chelas-passport') 
+const passport = require('passport') 
 const expressSession = require('express-session');
-
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -13,6 +14,7 @@ passport.deserializeUser(deserializeUser);
 const app = express()
 app.use(morgan('dev'))
 
+//const FileStore = require('session-file-store')(expressSession);
 app.use(expressSession(
   {
          resave: false,
@@ -22,13 +24,11 @@ app.use(expressSession(
   }
 ))
 
-
+app.use(cookieParser())
 app.use(express.json())
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-
 
 app.post('/login', validateLogin)
 app.put('/logout', logout)
@@ -72,15 +72,13 @@ function homeNotAuthenticated(req, rsp) {
 
 
 
-function validateLogin(req, rsp, next) {
+function validateLogin(req, rsp) {
   if(validateUser(req.body.username, req.body.password)) {
     console.log(req.body)
     req.logIn({
        username: req.body.username
-    }, (err) => {
-      if(err) return next(err)
-      rsp.redirect('/auth/home')
-    })
+    }, (err) => rsp.redirect('/home'))
+    return;
   }
   else rsp.redirect('/login')
 
