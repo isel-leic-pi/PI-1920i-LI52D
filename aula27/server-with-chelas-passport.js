@@ -6,6 +6,9 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser') 
 const passport = require('./chelas-passport') 
 
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
+
 const app = express()
 app.use(morgan('dev'))
 
@@ -14,6 +17,8 @@ app.use(express.json())
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+
 
 app.post('/login', validateLogin)
 app.put('/logout', logout)
@@ -28,6 +33,18 @@ app.listen(PORT, () => console.log(`Server listening on port http://localhost:${
 
 
 //////////////////////////////////
+
+function deserializeUser(user, done) {
+  console.log("deserializeUserCalled")
+  done(null, user)
+}
+
+
+function serializeUser(user, done) {
+  console.log("serializeUserCalled")
+  done(null, user)
+}
+
 
 function  showSessionCount(req, rsp) {
     req.session.count = (req.session.count+1) || 1;
@@ -45,15 +62,17 @@ function homeNotAuthenticated(req, rsp) {
 
 
 
-function validateLogin(req, rsp) {
+function validateLogin(req, rsp, next) {
   if(validateUser(req.body.username, req.body.password)) {
     console.log(req.body)
     req.logIn({
        username: req.body.username
-    }, (err) => rsp.redirect('/home'))
-    return rsp.redirect('/auth/home')
+    }, (err) => {
+      if(err) return next(err)
+      rsp.redirect('/auth/home')
+    })
   }
-  rsp.redirect('/login')
+  else rsp.redirect('/login')
 
   function validateUser(){ return true; }
 

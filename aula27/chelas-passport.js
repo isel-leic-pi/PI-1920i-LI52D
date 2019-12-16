@@ -17,16 +17,18 @@ let deserializeUserCb = function (user, done) {
 
 function initialize() {
   return function(req, rsp, next) {
-    req.logIn = function(user, errCb) {
+    req.logIn = function(user, cb) {
       console.log(user)
       serializeUserCb(user, function(err, userSerialized) {
         console.log(userSerialized)
         rsp.cookie(SESSION_COOKIE_NAME, JSON.stringify(userSerialized))
+        cb(err)
       })
     }
 
-    req.logOut = function(obj, errCb) {
+    req.logOut = function(obj, cb) {
       rsp.clearCookie(SESSION_COOKIE_NAME)
+      cb()
     }
 
     req.isAuthenticated = function() {
