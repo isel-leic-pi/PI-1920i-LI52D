@@ -3,13 +3,18 @@ const routes = require('./routes')
 
 window.addEventListener("load", function() {
   window.addEventListener('hashchange', processHashChange)
-  let results = document.querySelector("#results")
+  let b4MainNode = document.querySelector("#b4-main")
+  let b4AlertsNode = document.querySelector("#b4-alerts")
 
+  
   let routeData = null;
 
   const routeManager = {
     setMainContent: function (html) {
-      results.innerHTML = html
+      b4MainNode.innerHTML = html
+    },
+    showAlert: function (html) {
+      b4AlertsNode.innerHTML = html
     },
 
     changeRoute: function(hash, data) {

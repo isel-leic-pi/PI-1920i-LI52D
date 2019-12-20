@@ -223,13 +223,18 @@ const routes = __webpack_require__(/*! ./routes */ "./js/routes.js")
 
 window.addEventListener("load", function() {
   window.addEventListener('hashchange', processHashChange)
-  let results = document.querySelector("#results")
+  let b4MainNode = document.querySelector("#b4-main")
+  let b4AlertsNode = document.querySelector("#b4-alerts")
 
+  
   let routeData = null;
 
   const routeManager = {
     setMainContent: function (html) {
-      results.innerHTML = html
+      b4MainNode.innerHTML = html
+    },
+    showAlert: function (html) {
+      b4AlertsNode.innerHTML = html
     },
 
     changeRoute: function(hash, data) {
@@ -296,9 +301,24 @@ module.exports = {
   bundlesTableTemplate:
     Handlebars.compile(__webpack_require__(/*! ./templates/bundles.hbs */ "./js/view/templates/bundles.hbs").default),
   bundleTemplate:
-    Handlebars.compile(__webpack_require__(/*! ./templates/bundle.hbs */ "./js/view/templates/bundle.hbs").default)
+    Handlebars.compile(__webpack_require__(/*! ./templates/bundle.hbs */ "./js/view/templates/bundle.hbs").default),
+  alertTemplate:
+    Handlebars.compile(__webpack_require__(/*! ./templates/alert.hbs */ "./js/view/templates/alert.hbs").default)
 }
 
+
+/***/ }),
+
+/***/ "./js/view/templates/alert.hbs":
+/*!*************************************!*\
+  !*** ./js/view/templates/alert.hbs ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"alert alert-{{type}} alert-dismissible fade show\" role=\"alert\">\n{{message}}\n<button class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> \n    <span aria-hidden=\"true\">&times;</span>\n</button>\n</div>");
 
 /***/ }),
 
@@ -337,7 +357,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>B4 Application</h1>\n<img src=\"{{bigodes}}\"/>\n<p>\n  <a href=\"#bundles\">All bundles</a>\n<p>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"jumbotron\">\n  <h1>Welcome!</h1>\n  <p>\n    B4 is an application for creating book bundles.</p>\n  <img src=\"{{bigodes}}\" />\n</div>");
 
 /***/ }),
 
@@ -381,8 +401,9 @@ function bundleDetailsView(bundle, routeManager) {
 
 
 
-function deleteBundleView(params) {
-  console.log(`deleting bundle ${this.id}`)
+function deleteBundleView(ignore, routeManager) {
+  console.log(ignore)
+  routeManager.showAlert(templates.alertTemplate({ type: "success", message: "Bundle deleted"})) 
   routeManager.changeRoute(`bundles`)
 }
 

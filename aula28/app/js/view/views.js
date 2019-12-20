@@ -31,7 +31,8 @@ function bundleDetailsView(bundle, routeManager) {
 
 
 
-function deleteBundleView(params) {
-  console.log(`deleting bundle ${this.id}`)
+function deleteBundleView(ignore, routeManager) {
+  console.log(ignore)
+  routeManager.showAlert(templates.alertTemplate({ type: "success", message: "Bundle deleted"})) 
   routeManager.changeRoute(`bundles`)
 }

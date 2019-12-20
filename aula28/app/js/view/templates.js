@@ -6,5 +6,7 @@ module.exports = {
   bundlesTableTemplate:
     Handlebars.compile(require('./templates/bundles.hbs').default),
   bundleTemplate:
-    Handlebars.compile(require('./templates/bundle.hbs').default)
+    Handlebars.compile(require('./templates/bundle.hbs').default),
+  alertTemplate:
+    Handlebars.compile(require('./templates/alert.hbs').default)
 }
